@@ -1,0 +1,12 @@
+# META-INF/xposed/module.prop —— 现代（modern / libxposed）模块声明
+# 放置位置：app/src/main/resources/META-INF/xposed/module.prop
+id=com.example.mymodule
+name=MyModule
+version=1.0.0
+versionCode=1
+author=your-name
+description=一句话说明这个模块做什么
+# 以下三项是 modern 加载的关键，不要沿用 legacy 的 100
+minApiVersion=101
+targetApiVersion=101
+staticScope=false

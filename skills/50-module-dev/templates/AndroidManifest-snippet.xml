@@ -1,0 +1,12 @@
+<!--
+  modern 模块的 Manifest 只需要普通应用声明；不要加 legacy 的三个 meta-data：
+    <meta-data android:name="xposedmodule" .../>
+    <meta-data android:name="xposeddescription" .../>
+    <meta-data android:name="xposedminversion" .../>
+  保留它们会让模块看起来是 legacy，容易与 modern 入口冲突。
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application
+        android:label="MyModule"
+        android:hasCode="true" />
+</manifest>

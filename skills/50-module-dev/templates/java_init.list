@@ -1,0 +1,3 @@
+# META-INF/xposed/java_init.list —— 一行一个入口类全限定名（不要写注释行，某些解析器不容错）
+# 放置位置：app/src/main/resources/META-INF/xposed/java_init.list
+com.example.mymodule.MainHook

@@ -1,0 +1,26 @@
+# 样本与派生物：不入库
+samples/*
+work/*
+out/*
+!samples/.gitkeep
+!work/.gitkeep
+
+# 本地环境
+local.properties
+.gradle/
+build/
+*.apk
+*.aab
+*.apks
+*.xapk
+*.ipa
+*.so
+*.dex
+*.jar
+!skills/**/templates/*.jar
+
+# 编辑器与系统
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

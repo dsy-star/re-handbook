@@ -1,0 +1,34 @@
+// app/build.gradle 片段：libxposed 只能用 compileOnly（桩不得打进 APK）
+android {
+    compileSdk 34
+    defaultConfig {
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName "1.0.0"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    // 按所用 libxposed API 版本替换版本号；坐标见项目 README（待补充：语料未固定版本号）
+    compileOnly "io.github.libxposed:api:101"
+}
+
+// 自检：构建后确认桩没有被 merge 进 APK
+tasks.register("verifyXposedPackaging") {
+    doLast {
+        def apk = file("$buildDir/outputs/apk/debug/app-debug.apk")
+        if (!apk.exists()) { throw new GradleException("先 assembleDebug") }
+        def entries = new java.util.zip.ZipFile(apk).withCloseable { it.entries().collect { e -> e.name } }
+        ["META-INF/xposed/module.prop", "META-INF/xposed/java_init.list"].each {
+            if (!entries.contains(it)) throw new GradleException("缺少 $it")
+        }
+        if (entries.any { it.startsWith("io/github/libxposed/") }) {
+            throw new GradleException("libxposed 桩被打进 APK，检查是否误用 implementation")
+        }
+    }
+}
